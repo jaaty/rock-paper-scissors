@@ -21,12 +21,15 @@ let playRound = (humanChoice, computerChoice) => {
 
     if (humanChoice === computerChoice) {
         results.textContent = "It\'s a tie!";
+        updateScore();
     } else if (humanChoice === 'rock' && computerChoice === 'scissors' || humanChoice === 'paper' && computerChoice === 'rock' || humanChoice === 'scissors' && computerChoice === 'paper') {
         results.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
         humanScore++;
+        updateScore();
     } else {
         results.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
         computerScore++;
+        updateScore();
     }
 }
 
@@ -44,6 +47,20 @@ let playGame = () => {
     scissorsBtn.addEventListener("click", () => {
         playRound("scissors", getComputerChoice());
     });
+}
+
+let updateScore = () => {
+    const score = document.querySelector(".score");
+    score.textContent = `human score: ${humanScore}. computer score: ${computerScore}`;
+    if (humanScore >= 5) {
+        score.textContent = `You win the game! ${humanScore} - ${computerScore}`;
+        humanScore = 0;
+        computerScore = 0;
+    } else if (computerScore >= 5) {
+        score.textContent = `You lose the game! ${computerScore} - ${humanScore}`;
+        humanScore = 0;
+        computerScore = 0;
+    }
 }
 
 playGame();
